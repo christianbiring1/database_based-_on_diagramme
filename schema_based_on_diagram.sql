@@ -31,10 +31,24 @@ CREATE TABLE invoice_items(
 	treatment_id INT
 );
 
-ALTER TABLE medical_histories ADD FOREIGN KEY(patient_id) REFERENCES patients(id);
+ALTER TABLE medical_histories
+ADD FOREIGN KEY(patient_id)
+REFERENCES patients(id);
 
-ALTER TABLE invoices ADD FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id);
+ALTER TABLE invoices
+ADD FOREIGN KEY(medical_history_id)
+REFERENCES medical_histories(id);
 
-ALTER TABLE invoice_items ADD FOREIGN KEY(invoice_id) REFERENCES invoices(id);
+ALTER TABLE invoice_items
+ADD FOREIGN KEY(invoice_id)
+REFERENCES invoices(id);
 
-ALTER TABLE invoice_items ADD FOREIGN KEY(treatment_id) REFERENCES treatments(id);
+ALTER TABLE invoice_items
+ADD FOREIGN KEY(treatment_id)
+REFERENCES treatments(id);
+
+-- CREATE THE JOINING TABLE FOR THE M-M RELATION TYPE
+CREATE TABLE treatments_histories
+(medical_history_id INT REFERENCES medical_histories(id),
+treatment_id INT REFERENCES treatments(id)
+);
